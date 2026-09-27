@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNO Arena</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="pregame-container" id="pregame-screen">
+        <div class="lobby-shell">
+            <div class="lobby-kicker">Multiplayer Card Table</div>
+            <h1>UNO Arena</h1>
+            <p>Build a room, bring your players in, and run a smooth live game with turn rules, UNO calls, wild challenges, and a proper table layout.</p>
+            <div id="pregameUtilities">
+                <div class="lobby-actions">
+                    <button id="createRoom">Create Room</button>
+                    <button id="joinRoom" class="action-button cool">Join Room</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="game-container" id="game-screen">
+        <div class="table-surface"></div>
+        <div class="table-brand">UNO</div>
+        <div class="table-header">
+            <div class="status-copy">
+                <span class="status-eyebrow">Match Status</span>
+                <span class="status-headline" id="statusHeadline">Waiting for the first move</span>
+            </div>
+            <div class="room-chip" id="roomBadge">LIVE TABLE</div>
+        </div>
+        <div class="control-rail" id="controlRail"></div>
+        <div class="player-card player1">
+            <h2>Player 1</h2>
+        </div>
+        <div class="player-card player2">
+            <h2>Player 2</h2>
+        </div>
+        <div class="player-card player3">
+            <h2>Player 3</h2>
+        </div>
+        <div class="player-card player4">
+            <h2>Player 4</h2>
+        </div>
+        <div class="center-container">
+            <div class="cards-played center-card">
+                <h3>Cards Played</h3>
+            </div>
+            <div class="center-card">
+                <h3>Card Source</h3>
+            </div>
+        </div>
+    </div>
+    <div class="toast-stack" id="toastStack"></div>
+    <div class="victory-overlay" id="victoryOverlay">
+        <div class="confetti-layer" id="confettiLayer"></div>
+        <div class="victory-card">
+            <p class="victory-kicker">Round Complete</p>
+            <h2 class="victory-title">Winner</h2>
+            <p class="victory-name" id="victoryName">Player</p>
+            <p class="victory-copy">The table erupts and the cards reset for the next showdown.</p>
+        </div>
+    </div>
+    <div class="orientation-lock" id="orientationLock">
+        <div class="orientation-lock-card">
+            <h2>Rotate Device</h2>
+            <p>Gameplay is available only in landscape mode on phone screens. Rotate your device to continue the match.</p>
+        </div>
+    </div>
+    <script src="/vendor/socket.io.min.js"></script>
+    <script src="index.js"></script>
+    <script src="game.js"></script>
+    <script src="audio.js"></script>
+</body>
+</html>
