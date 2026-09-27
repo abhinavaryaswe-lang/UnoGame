@@ -173,11 +173,22 @@ socket.on('gameStarted', data => {
         data.yourIndex,
         data.turn,
         data.lastPlayedCard,
-        data.suitch
+        data.suitch,
+        data.direction
     );
 });
 
-function displayCards(yourCards, playersInfo, yourIndex, turn, lastPlayedCard, suitch) {
+function displayCards(yourCards, playersInfo, yourIndex, turn, lastPlayedCard, suitch, direction = 1) {
+    const directionOrbit = document.querySelector('.direction-orbit');
+    if (directionOrbit) {
+        const isCounterclockwise = direction < 0;
+        directionOrbit.classList.toggle('counterclockwise', isCounterclockwise);
+        directionOrbit.setAttribute(
+            'aria-label',
+            `Play direction: ${isCounterclockwise ? 'counterclockwise' : 'clockwise'}`
+        );
+    }
+
     const playerContainers = [
         document.querySelector('.player1'),
         document.querySelector('.player2'),
@@ -316,7 +327,8 @@ socket.on('game_state', data => {
         data.yourIndex,
         data.currentTurn,
         data.currentCard,
-        data.suitch
+        data.suitch,
+        data.direction
     );
     renderUnoControls(data.canCallUno, data.canCatchUno, data.unoPendingPlayerName);
 });
@@ -333,7 +345,8 @@ socket.on('drawn_state', data => {
         data.yourIndex,
         data.currentTurn,
         data.currentCard,
-        data.suitch
+        data.suitch,
+        data.direction
     );
 
     removeElementIfPresent('passButton');
@@ -426,6 +439,36 @@ socket.on('draw_four_pending', data => {
 socket.on('draw_four_result', data => {
     removeElementIfPresent('drawFourDecision');
     showToast(data.message, 3200);
+});
+
+const colorChangePresentation = {
+    R: { name: 'Red', value: '#ff595e' },
+    G: { name: 'Green', value: '#65d46e' },
+    B: { name: 'Blue', value: '#3f9bff' },
+    Y: { name: 'Yellow', value: '#ffd84d' }
+};
+let colorChangeAnimationTimer;
+
+socket.on('color_changed', data => {
+    const selectedColor = colorChangePresentation[data.color];
+    const animation = document.getElementById('colorChangeFx');
+    if (!selectedColor || !animation) {
+        return;
+    }
+
+    animation.style.setProperty('--chosen-color', selectedColor.value);
+    document.getElementById('colorChangeTitle').textContent = selectedColor.name;
+    document.getElementById('colorChangeCardType').textContent = data.cardType || 'COLOR SHIFT';
+    document.getElementById('colorChangePlayer').textContent = `${data.playerName} changed the color`;
+    animation.setAttribute('aria-label', `${data.playerName} changed the color to ${selectedColor.name}`);
+
+    window.clearTimeout(colorChangeAnimationTimer);
+    animation.classList.remove('active');
+    void animation.offsetWidth;
+    animation.classList.add('active');
+    colorChangeAnimationTimer = window.setTimeout(() => {
+        animation.classList.remove('active');
+    }, 1750);
 });
 
 socket.on('uno_called', data => {

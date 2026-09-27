@@ -393,6 +393,7 @@ function buildGamePayload(roomID, game, player, index) {
     yourIndex: index,
     currentCard: game.currentCard,
     currentColor: game.currentColor,
+    direction: game.direction,
     currentTurn: game.currentPlayerIndex,
     suitch: game.suitch,
     canCallUno:
@@ -698,6 +699,7 @@ io.on('connection', client => {
         yourIndex: index,
         lastPlayedCard,
         turn: 0,
+        direction: games[roomID].direction,
         suitch: games[roomID].suitch
       });
     });
@@ -799,6 +801,12 @@ io.on('connection', client => {
     game.currentColor = color;
     game.pendingColorChoice = null;
     game.suitch = true;
+
+    io.to(roomID).emit('color_changed', {
+      color,
+      playerName: player.name,
+      cardType: pendingChoice.type === 'wild' ? 'Wild Draw Four' : 'Wild'
+    });
 
     if (pendingChoice.type === 'wild') {
       const nextPlayerIndex = getNextPlayerIndex(game);

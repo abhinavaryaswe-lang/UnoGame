@@ -50,9 +50,37 @@
             <div class="center-card">
                 <h3>Card Source</h3>
             </div>
+            <div class="direction-orbit" role="img" aria-label="Play direction: clockwise">
+                <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                    <defs>
+                        <linearGradient id="directionArrowGradient" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#ffbf1a" />
+                            <stop offset="100%" stop-color="#8fe8cf" />
+                        </linearGradient>
+                        <marker id="directionArrowHead" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+                            <path d="M0,0 L7,3.5 L0,7 Z" fill="#ffbf1a" />
+                        </marker>
+                    </defs>
+                    <circle class="direction-track" cx="50" cy="50" r="42" />
+                    <path class="direction-arrow" d="M50 8 A42 42 0 0 1 50 92" marker-end="url(#directionArrowHead)" />
+                    <path class="direction-arrow direction-arrow-secondary" d="M50 92 A42 42 0 0 1 50 8" marker-end="url(#directionArrowHead)" />
+                </svg>
+            </div>
         </div>
     </div>
     <div class="toast-stack" id="toastStack"></div>
+    <div class="color-change-fx" id="colorChangeFx" role="status" aria-live="polite" aria-atomic="true">
+        <div class="color-change-wash"></div>
+        <div class="color-change-wave"></div>
+        <div class="color-change-banner">
+            <span class="color-change-swatch" id="colorChangeSwatch"></span>
+            <span class="color-change-copy">
+                <span class="color-change-kicker" id="colorChangeCardType">COLOR SHIFT</span>
+                <strong id="colorChangeTitle">Blue</strong>
+                <span class="color-change-player" id="colorChangePlayer"></span>
+            </span>
+        </div>
+    </div>
     <div class="victory-overlay" id="victoryOverlay">
         <div class="confetti-layer" id="confettiLayer"></div>
         <div class="victory-card">
