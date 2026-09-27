@@ -7,6 +7,8 @@
 ![Socket.IO 4](https://img.shields.io/badge/Socket.IO-4-010101?logo=socketdotio&logoColor=white)
 ![Vanilla JavaScript](https://img.shields.io/badge/Frontend-Vanilla%20JavaScript-f7df1e?logo=javascript&logoColor=111111)
 
+Play it online: https://unogame-nldh.onrender.com/
+
 ## Contents
 
 - [Features](#features)
